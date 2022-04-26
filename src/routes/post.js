@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const post = require("../usescases/post");
+const post = require("../usecases/post");
 
 router.get("/", async (req, res, next) => {
   try {
