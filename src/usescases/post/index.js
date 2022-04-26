@@ -9,13 +9,29 @@ const getById = async (id) => {
 };
 
 const createPost = async (post) => {
-  const { imagen, userId, titlePost, tags, content } = post;
-  const newPost = new Post({
-    imagen,
+  const {
+    commentsPost,
+    content,
+    datePost,
+    image,
+    imageUser,
     userId,
     titlePost,
     tags,
+    reactionsPost,
+    timeReadP,
+  } = post;
+  const newPost = new Post({
+    commentsPost,
     content,
+    datePost,
+    image,
+    imageUser,
+    userId,
+    titlePost,
+    tags,
+    reactionsPost,
+    timeReadP,
   });
   return newPost.save();
 };

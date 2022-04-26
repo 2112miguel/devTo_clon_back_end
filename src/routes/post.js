@@ -6,7 +6,6 @@ router.get("/", async (req, res, next) => {
     console.log("Entra");
     const getPost = await post.get();
     res.json({
-      success: true,
       playload: getPost,
     });
   } catch (error) {
@@ -29,14 +28,29 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log("Entra");
-    const { imagen, userId, titlePost, tags, content } = req.body;
-    const createPost = await post.createPost({
-      imagen,
+    const {
+      commentsPost,
+      content,
+      datePost,
+      image,
+      imageUser,
       userId,
       titlePost,
       tags,
+      reactionsPost,
+      timeReadP,
+    } = req.body;
+    const createPost = await post.createPost({
+      commentsPost,
       content,
+      datePost,
+      image,
+      imageUser,
+      userId,
+      titlePost,
+      tags,
+      reactionsPost,
+      timeReadP,
     });
     res.json({
       success: true,
