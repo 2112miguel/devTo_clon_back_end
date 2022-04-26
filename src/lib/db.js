@@ -3,7 +3,6 @@ const config = require('./config')
 
 const connect=()=>{
     const dbConexion= `mongodb+srv://${config.db.user}:${config.db.password}@${config.db.host}/${config.db.baseCollection}?retryWrites=true&w=majority`
-    console.log(dbConexion)
     return new Promise((resolve,reject)=>{
         mongoose.connect(
             dbConexion,
