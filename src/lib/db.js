@@ -1,5 +1,5 @@
-const mongoose= require('mongoose')
-const config = require('./config')
+const mongoose = require("mongoose");
+const config = require("./config");
 
 const connect=()=>{
     const dbConexion= `mongodb+srv://${config.db.user}:${config.db.password}@${config.db.host}/${config.db.baseCollection}?retryWrites=true&w=majority`
@@ -9,17 +9,16 @@ const connect=()=>{
             {useNewUrlParser: true}
         )
         const db= mongoose.connection
+    db.on("open", () => {
+      console.log("Conexion a la BD");
+      resolve(mongoose);
+    });
 
-        db.on('open',()=>{
-            console.log("Conexcion a la BD")
-            resolve(mongoose)
-        })
+    db.on("error", (err) => {
+      console.log("Conexion fallida", err);
+      reject(err);
+    });
+  });
+};
 
-        db.on('error',(err)=>{
-            console.log("Conexion fallida", err)
-            reject(err)
-        })
-    })
-}
-
-module.exports={connect}
+module.exports = { connect };
