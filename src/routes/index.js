@@ -1,7 +1,8 @@
-const userRouter = require("./users");
+const postRoute = require("./post");
 
 const apiRouter = (app) => {
-  app.use("/users", userRouter);
+  app.use("/posts", postRoute);
+
 };
 
 module.exports = apiRouter;
