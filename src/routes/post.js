@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { authHandler } = require("../middlewares/authHandler");
 const post = require("../usecases/post");
 
 router.get("/", async (req, res, next) => {
@@ -73,7 +74,7 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", authHandler, async (req, res, next) => {
   try {
     const { id } = req.params;
     const delPost = await post.del(id);
