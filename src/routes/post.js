@@ -19,6 +19,7 @@ router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const getIdPost = await post.getById(id);
+    console.log(getIdPost.userId);
     res.json({
       success: true,
       playload: getIdPost,

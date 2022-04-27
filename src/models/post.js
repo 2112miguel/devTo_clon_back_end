@@ -9,7 +9,7 @@ const schema = new Schema({
   userId: [
     {
       type: Schema.Types.ObjectId,
-      ref: "devtos",
+      ref: "User",
     },
   ],
   titlePost: { type: String, required: true },

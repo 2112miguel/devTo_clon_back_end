@@ -5,7 +5,7 @@ const get = async () => {
 };
 
 const getById = async (id) => {
-  return await Post.findById(id).exec();
+  return await Post.findById(id).populate("userId").exec();
 };
 
 const createPost = async (post) => {
