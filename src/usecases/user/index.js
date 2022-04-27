@@ -6,7 +6,6 @@ const getById = async (id) => {
 };
 const getByEmail = async (email) => {
   const find = await User.findOne({ email }).exec();
-  console.log(find);
   return find;
 };
 const authenticate = async (user, password) => {
@@ -23,9 +22,17 @@ const create = async (firstName, lastName, email, password) => {
   });
   return await newUser.save();
 };
+
+const patch = async (id, postData) => {
+  return await User.findByIdAndUpdate(id, { ...postData })
+    .exec()
+    .catch((error) => console.log(error));
+};
+
 module.exports = {
   getById,
   getByEmail,
   authenticate,
   create,
+  patch,
 };

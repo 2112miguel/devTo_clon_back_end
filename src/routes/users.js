@@ -1,4 +1,5 @@
 const express = require("express");
+const userModel = require("../models/user");
 const user = require("../usecases/user");
 
 const router = express.Router();
@@ -27,6 +28,20 @@ router.post("/", async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+});
+
+router.patch("/:email", async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const userInfo = await user.getByEmail(email);
+    user.patch(userInfo._id, { ...req.body });
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+    console.log(error);
   }
 });
 
