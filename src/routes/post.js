@@ -6,8 +6,21 @@ const user = require("../usecases/user");
 router.get("/", async (req, res, next) => {
   try {
     const getPost = await post.get();
-    res.json({
-      playload: getPost,
+    console.log(getPost[0]._id);
+    getPost.forEach((post) => {
+      console.log(post.userId[0].email);
+      res.json({
+        id: post._id,
+        commentsPost: post.commentsPost,
+        datePost: post.datePost,
+        image: post.image,
+        titlePost: post.titlePost,
+        tags: post.tags,
+        reactionsPost: post.reactionsPost,
+        timeReadP: post.timeReadP,
+        email: post.userId[0].email,
+        imageUser: post.userId[0].imageUser,
+      });
     });
   } catch (error) {
     next(error);
@@ -18,10 +31,18 @@ router.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const getIdPost = await post.getById(id);
-    console.log(getIdPost.userId);
     res.json({
-      success: true,
-      playload: getIdPost,
+      id: getIdPost._id,
+      commentsPost: getIdPost.commentsPost,
+      content: getIdPost.content,
+      datePost: getIdPost.datePost,
+      image: getIdPost.image,
+      titlePost: getIdPost.titlePost,
+      tags: getIdPost.tags,
+      reactionsPost: getIdPost.reactionsPost,
+      timeReadP: getIdPost.timeReadP,
+      userId: getIdPost.userId[0].email,
+      imageUser: getIdPost.userId[0].imageUser,
     });
   } catch (error) {
     next(error);
