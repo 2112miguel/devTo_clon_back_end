@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { authHandler } = require("../middlewares/authHandler");
 const post = require("../usecases/post");
+const user = require("../usecases/user");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -27,26 +28,25 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/", authHandler, async (req, res, next) => {
   try {
     const {
       commentsPost,
       content,
       datePost,
       image,
-      imageUser,
-      userId,
+      userEmail,
       titlePost,
       tags,
       reactionsPost,
       timeReadP,
     } = req.body;
+    const userId = await user.getByEmail(userEmail);
     const createPost = await post.createPost({
       commentsPost,
       content,
       datePost,
       image,
-      imageUser,
       userId,
       titlePost,
       tags,
@@ -58,10 +58,11 @@ router.post("/", async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+    console.log(error);
   }
 });
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/:id", authHandler, async (req, res, next) => {
   try {
     const { id } = req.params;
     const postUpdate = await post.patch(id, { ...req.body });

@@ -6,8 +6,12 @@ const schema = new Schema({
   content: { type: String, required: true },
   datePost: { type: String, required: true },
   image: { type: String, required: true },
-  imageUser: { type: String, required: false },
-  userId: { type: String, required: false },
+  userId: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "devtos",
+    },
+  ],
   titlePost: { type: String, required: true },
   tags: { type: String, required: true },
   reactionsPost: { type: String, require: true },

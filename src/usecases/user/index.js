@@ -5,7 +5,9 @@ const getById = async (id) => {
   return await User.findById(id).exec();
 };
 const getByEmail = async (email) => {
-  return await User.findOne({ email }).exec();
+  const find = await User.findOne({ email }).exec();
+  console.log(find);
+  return find;
 };
 const authenticate = async (user, password) => {
   const hash = user.password;
