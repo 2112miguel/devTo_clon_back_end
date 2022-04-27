@@ -1,7 +1,9 @@
 const Post = require("../../models/post").model;
 
 const get = async () => {
-  return await Post.find({}).exec();
+  const posts = await Post.find({}).populate("userId").exec();
+  console.log(posts.content);
+  return posts;
 };
 
 const getById = async (id) => {

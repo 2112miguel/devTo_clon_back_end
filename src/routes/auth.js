@@ -8,21 +8,22 @@ router.post("/login", async (req, res, next) => {
     const { email, password } = req.body;
 
     const retrievedUser = await user.getByEmail(email);
-    console.log("Desde post ".retrievedUser);
-    const isMatch = await user.authenticate(retrievedUser, password);
 
-    if (isMatch) {
-      const token = await jwt.sign({
-        sub: retrievedUser._id,
-      });
-      res.json({
-        success: true,
-        payload: token,
-      });
+    if (retrievedUser) {
+      const isMatch = await user.authenticate(retrievedUser, password);
+      if (isMatch) {
+        const token = await jwt.sign({
+          sub: retrievedUser._id,
+        });
+        res.json({
+          success: true,
+          payload: token,
+        });
+      } else {
+        res.status(401).json({ success: false });
+      }
     } else {
-      res
-        .status(401)
-        .json({ success: false, message: "Contraseña incorrecta" });
+      res.status(401).json({ success: false });
     }
   } catch (error) {
     next(error);

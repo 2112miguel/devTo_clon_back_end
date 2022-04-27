@@ -5,8 +5,10 @@ const user = require("../usecases/user");
 
 router.get("/", async (req, res, next) => {
   try {
-    console.log("Entra");
-    const getPost = await post.get();
+    let getPost = await post.get();
+    getPost = JSON.stringify(getPost);
+    getPost = JSON.parse(getPost);
+    console.log(getPost);
     res.json({
       playload: getPost,
     });
