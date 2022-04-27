@@ -8,7 +8,6 @@ router.get("/", async (req, res, next) => {
     const getPost = await post.get();
     console.log(getPost[0]._id);
     getPost.forEach((post) => {
-      console.log(post.userId[0].email);
       res.json({
         id: post._id,
         commentsPost: post.commentsPost,
