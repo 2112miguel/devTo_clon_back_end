@@ -4,13 +4,14 @@ const user = require("../usecases/user");
 
 const router = express.Router();
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:email", async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const retrievedUser = await user.getById(id);
+    const { email } = req.params;
+    const retrievedUser = await user.getByEmail(email);
     res.json({
-      success: true,
-      payload: retrievedUser,
+      firstName: retrievedUser.firstName,
+      lastName: retrievedUser.lastName,
+      imageUser: retrievedUser.imageUser,
     });
   } catch (error) {
     next(error);
