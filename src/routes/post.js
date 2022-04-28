@@ -6,20 +6,9 @@ const user = require("../usecases/user");
 router.get("/", async (req, res, next) => {
   try {
     const getPost = await post.get();
-    console.log(getPost[0]._id);
-    getPost.forEach((post) => {
-      res.json({
-        id: post._id,
-        commentsPost: post.commentsPost,
-        datePost: post.datePost,
-        image: post.image,
-        titlePost: post.titlePost,
-        tags: post.tags,
-        reactionsPost: post.reactionsPost,
-        timeReadP: post.timeReadP,
-        email: post.userId[0].email,
-        imageUser: post.userId[0].imageUser,
-      });
+    console.log(getPost);
+    res.json({
+      payload: getPost,
     });
   } catch (error) {
     next(error);

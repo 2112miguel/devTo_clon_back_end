@@ -41,7 +41,7 @@ const patch = async (id, postData) => {
   return await Post.findByIdAndUpdate(id, { ...postData }).exec();
 };
 
-const del = async (id, postData) => {
+const del = async (id) => {
   return await Post.findByIdAndDelete(id).exec();
 };
 
