@@ -2,11 +2,11 @@ const router = require("express").Router();
 const { authHandler } = require("../middlewares/authHandler");
 const post = require("../usecases/post");
 const user = require("../usecases/user");
+const { delPost } = require("../middlewares/permisionHandler");
 
 router.get("/", async (req, res, next) => {
   try {
     const getPost = await post.get();
-    console.log(getPost);
     res.json({
       payload: getPost,
     });
@@ -71,7 +71,7 @@ router.post("/", authHandler, async (req, res, next) => {
   }
 });
 
-router.patch("/:id", authHandler, async (req, res, next) => {
+router.patch("/:id", authHandler, delPost, async (req, res, next) => {
   try {
     const { id } = req.params;
     const postUpdate = await post.patch(id, { ...req.body });

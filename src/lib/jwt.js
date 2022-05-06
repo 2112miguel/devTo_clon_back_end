@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const config = require("./config");
 
-const sign = async (playload) => {
-  return await jwt.sign(playload, config.app.jwt, { expiresIn: "1h" });
+const sign = async (payload) => {
+  return await jwt.sign(payload, config.app.jwt, { expiresIn: "1h" });
 };
 
 const verify = async (token) => {
