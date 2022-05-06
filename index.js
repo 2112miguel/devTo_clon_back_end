@@ -9,7 +9,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 apiRouter(app);
-app.listen(port, () => {
+app.listen(process.env.PORT || 3001, "0.0.0.0", () => {
   console.log(`Welcome to DevTo app, now listening on port: ${port}`);
 
   db.connect()
