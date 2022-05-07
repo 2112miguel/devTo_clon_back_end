@@ -13,6 +13,7 @@ router.post("/login", async (req, res, next) => {
       if (isMatch) {
         const token = await jwt.sign({
           _id: retrievedUser._id,
+          role: retrievedUser.role,
         });
         res.json({
           success: true,

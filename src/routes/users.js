@@ -4,20 +4,27 @@ const user = require("../usecases/user");
 const router = express.Router();
 const { delPost } = require("../middlewares/permisionHandler");
 const { authHandler } = require("../middlewares/authHandler");
+const { adminHandler } = require("../middlewares/adminHandler");
 
-router.get("/:email", authHandler, delPost, async (req, res, next) => {
-  try {
-    const { email } = req.params;
-    const retrievedUser = await user.getByEmail(email);
-    res.json({
-      firstName: retrievedUser.firstName,
-      lastName: retrievedUser.lastName,
-      imageUser: retrievedUser.imageUser,
-    });
-  } catch (error) {
-    next(error);
+router.get(
+  "/:email",
+  authHandler,
+  delPost,
+  adminHandler,
+  async (req, res, next) => {
+    try {
+      const { email } = req.params;
+      const retrievedUser = await user.getByEmail(email);
+      res.json({
+        firstName: retrievedUser.firstName,
+        lastName: retrievedUser.lastName,
+        imageUser: retrievedUser.imageUser,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.post("/", async (req, res, next) => {
   try {

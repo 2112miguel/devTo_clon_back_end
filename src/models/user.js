@@ -8,6 +8,7 @@ const schema = new Schema({
   email: { type: String, required: true, unique: true, index: true },
   password: { type: String, required: true },
   imageUser: { type: String, required: false, default: "imagen" },
+  role: { type: String, required: false, default: "client" },
 });
 
 module.exports = {
