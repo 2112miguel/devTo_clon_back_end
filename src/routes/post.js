@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const { authHandler } = require("../middlewares/authHandler");
 const post = require("../usecases/post");
 const user = require("../usecases/user");
 const { delPost } = require("../middlewares/permisionHandler");
+const { authHandler } = require("../middlewares/authHandler");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -84,7 +84,7 @@ router.patch("/:id", authHandler, delPost, async (req, res, next) => {
   }
 });
 
-router.delete("/:id", authHandler, async (req, res, next) => {
+router.delete("/:id", authHandler, delPost, async (req, res, next) => {
   try {
     const { id } = req.params;
     const delPost = await post.del(id);

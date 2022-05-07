@@ -1,10 +1,11 @@
 const express = require("express");
 const userModel = require("../models/user");
 const user = require("../usecases/user");
-
 const router = express.Router();
+const { delPost } = require("../middlewares/permisionHandler");
+const { authHandler } = require("../middlewares/authHandler");
 
-router.get("/:email", async (req, res, next) => {
+router.get("/:email", authHandler, delPost, async (req, res, next) => {
   try {
     const { email } = req.params;
     const retrievedUser = await user.getByEmail(email);
@@ -32,7 +33,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/:email", async (req, res, next) => {
+router.patch("/:email", authHandler, delPost, async (req, res, next) => {
   try {
     const { email } = req.params;
     const userInfo = await user.getByEmail(email);
