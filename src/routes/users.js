@@ -33,7 +33,6 @@ router.post("/", async (req, res, next) => {
     res.json({
       success: true,
       message: "User created",
-      payload: userCreated,
     });
   } catch (error) {
     next(error);

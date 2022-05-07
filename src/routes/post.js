@@ -7,8 +7,26 @@ const { authHandler } = require("../middlewares/authHandler");
 router.get("/", async (req, res, next) => {
   try {
     const getPost = await post.get();
+    const objPost = [];
+    // console.log(getPost);
+    getPost.forEach((item, index) => {
+      console.log(index);
+      objPost[index] = {
+        id: item._id,
+        commentsPost: item.commentsPost,
+        content: item.content,
+        datePost: item.datePost,
+        image: item.image,
+        titlePost: item.titlePost,
+        tags: item.tags,
+        reactionsPost: item.reactionsPost,
+        timeReadP: item.timeReadP,
+        userId: item.userId[0].email,
+        imageUser: item.userId[0].imageUser,
+      };
+    });
     res.json({
-      payload: getPost,
+      payload: objPost,
     });
   } catch (error) {
     next(error);
