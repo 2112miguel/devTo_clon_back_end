@@ -8,9 +8,7 @@ router.get("/", async (req, res, next) => {
   try {
     const getPost = await post.get();
     const objPost = [];
-    // console.log(getPost);
     getPost.forEach((item, index) => {
-      console.log(index);
       objPost[index] = {
         id: item._id,
         commentsPost: item.commentsPost,
