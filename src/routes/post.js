@@ -54,7 +54,6 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", authHandler, async (req, res, next) => {
-  console.log("Entra uno");
   try {
     const {
       commentsPost,
@@ -68,7 +67,6 @@ router.post("/", authHandler, async (req, res, next) => {
       timeReadP,
     } = req.body;
     const userId = await user.getById(idUserPost);
-    console.log("entro ", userId);
     const createPost = await post.createPost({
       commentsPost,
       content,
