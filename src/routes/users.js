@@ -45,10 +45,10 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/:email", authHandler, delPost, async (req, res, next) => {
+router.patch("/:id", authHandler, getUser, async (req, res, next) => {
   try {
-    const { email } = req.params;
-    const userInfo = await user.getByEmail(email);
+    const { id } = req.params;
+    const userInfo = await user.getById(id);
     user.patch(userInfo._id, { ...req.body });
     res.json({
       success: true,

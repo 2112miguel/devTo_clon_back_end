@@ -17,6 +17,8 @@ const delPost = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
+    console.log(_id);
+    console.log(req.params);
     if (req.params.id != _id) {
       console.log("entra");
       throw new Error("No tienes permisos");
