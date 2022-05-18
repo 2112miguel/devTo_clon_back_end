@@ -1,7 +1,7 @@
 const Post = require("../../models/post").model;
 
 const get = async () => {
-  const posts = await Post.find({}).populate("userId").exec();
+  const posts = await Post.find({}).populate("userId").sort({ _id: -1 }).exec();
   return posts;
 };
 
