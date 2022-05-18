@@ -1,8 +1,11 @@
+const post = require("../usecases/post");
+
 const delPost = async (req, res, next) => {
   try {
     const { _id } = req.params.tokenPayload;
-    if (req.body.idUser != _id) {
-      console.log("entra per", req.params);
+    const getIdPost = await post.getById(req.params.id);
+
+    if (getIdPost.userId[0]._id != _id) {
       throw new Error("No tienes permisos");
     }
     next();
