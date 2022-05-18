@@ -38,6 +38,7 @@ router.post("/", async (req, res, next) => {
       success: true,
       message: "User created",
       payload: token,
+      id: userId._id,
     });
   } catch (error) {
     next(error);
