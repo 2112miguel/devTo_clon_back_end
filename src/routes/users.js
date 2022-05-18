@@ -2,30 +2,28 @@ const express = require("express");
 const userModel = require("../models/user");
 const user = require("../usecases/user");
 const router = express.Router();
-const { delPost } = require("../middlewares/permisionHandler");
+const { delPost, getUser } = require("../middlewares/permisionHandler");
 const { authHandler } = require("../middlewares/authHandler");
 const { adminHandler } = require("../middlewares/adminHandler");
 const jwt = require("../lib/jwt");
 
-router.get(
-  "/:email",
-  authHandler,
-  delPost,
-  adminHandler,
-  async (req, res, next) => {
-    try {
-      const { email } = req.params;
-      const retrievedUser = await user.getByEmail(email);
+router.get("/:id", authHandler, getUser, async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const retrievedUser = await user.getById(id);
+    if (retrievedUser) {
       res.json({
         firstName: retrievedUser.firstName,
         lastName: retrievedUser.lastName,
         imageUser: retrievedUser.imageUser,
       });
-    } catch (error) {
-      next(error);
+    } else {
+      res.json({
+        success: false,
+      });
     }
-  }
-);
+  } catch (error) {}
+});
 
 router.post("/", async (req, res, next) => {
   try {
